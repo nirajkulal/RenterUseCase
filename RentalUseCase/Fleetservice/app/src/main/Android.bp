@@ -1,0 +1,49 @@
+android_app {
+    name: "FleetServiceApp",
+
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+        "src/**/*.aidl",
+    ],
+
+    // This app is installed to /system/priv-app
+    privileged: true,
+
+    // Needed to use ServiceManager, Settings.Global etc.
+    platform_apis: true,
+
+    // Optional: if you want to mark this as system app
+    certificate: "platform",
+
+    // Include AIDL in build
+    aidl: {
+        include_dirs: ["src"],
+        export_aidl: true,
+    },
+
+    kotlincflags: [
+        "-Xjvm-default=all",
+    ],
+
+    sdk_version: "system_current",
+}
+
+// Build a static library with just the AIDL + manager code
+android_library {
+    name: "FleetServiceLib",
+
+    srcs: [
+        "src/com/renter/fleetservice/IRentalService.aidl",
+        "src/com/renter/fleetservice/IRentalCallback.aidl",
+        "src/com/renter/fleetservice/FleetManager.kt",
+    ],
+
+    sdk_version: "system_current",
+    kotlincflags: ["-Xjvm-default=all"],
+
+    aidl: {
+        include_dirs: ["src"],
+        export_aidl: true,
+    },
+}

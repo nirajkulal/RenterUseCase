@@ -1,0 +1,19 @@
+android_app {
+    name: "DashboardApp",
+
+    srcs: [
+        "src/**/*.kt",
+    ],
+
+    privileged: true,
+    platform_apis: true,
+    certificate: "platform",
+
+    // Depend on the lib instead of duplicating AIDL
+    static_libs: [
+        "FleetServiceLib",
+    ],
+
+    sdk_version: "system_current",
+    kotlincflags: ["-Xjvm-default=all"],
+}
